@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MyServicesService } from '../my-services.service';
 
 @Component({
   selector: 'app-show-items',
@@ -7,10 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowItemsPage implements OnInit {
 
-  listName
-  task
-
-  constructor() { }
+  constructor(public myServices: MyServicesService) { }
 
   ngOnInit() {
   }

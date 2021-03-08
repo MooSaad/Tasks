@@ -9,43 +9,40 @@
 
 <ion-content>
   <ion-card class="ion-align-self-center">
+    <!-- <ion-img [src]="myServices.list['img']"></ion-img> -->
     <ion-card-header>
-      <ion-card-title>{{listName}}</ion-card-title>
+      <ion-card-title>{{myServices.list['title']}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      <ion-list>
-        <ion-item>
+        <ion-item lines="none" *ngFor="let task of myServices.list['tasks']">
           <ion-checkbox slot="start"></ion-checkbox>
-          <b [(ngModel)]="task">{{task}}</b>
+          <ion-label>{{task}}</ion-label>
         </ion-item>
-      </ion-list>
-
-      <ion-row align="center">
-        <ion-col size="3">
-          <ion-item lines="none">
-            <ion-icon name="image" size="large"></ion-icon>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="3">
-          <ion-item lines="none">
-            <ion-icon name="share-outline" size="large"></ion-icon>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="3">
-          <ion-item lines="none">
-            <ion-icon name="create" size="large"></ion-icon>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="3">
-          <ion-item lines="none">
-            <ion-icon name="trash-outline" size="large"></ion-icon>
-          </ion-item>
-        </ion-col>
-      </ion-row>
     </ion-card-content>
   </ion-card>
+
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-row>
+      <ion-item lines="none">
+        <ion-icon name="image"></ion-icon>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon name="share-outline"></ion-icon>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon name="create"></ion-icon>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-item>
+
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

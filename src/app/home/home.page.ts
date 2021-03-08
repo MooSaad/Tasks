@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { ModalController } from '@ionic/angular';
 import { AddNewListPage } from '../add-new-list/add-new-list.page';
 import { ShowItemsPage } from '../show-items/show-items.page';
+import { MyServicesService } from "../my-services.service";
 
 @Component({
   selector: 'app-home',
@@ -13,11 +13,12 @@ import { ShowItemsPage } from '../show-items/show-items.page';
 })
 export class HomePage {
   today: number = Date.now();
-  lists = []
+  //lists = []
   user = null;
   userInfo: boolean = false
-  constructor(public modalCtrl: ModalController, public afDB: AngularFireDatabase, public fireAuth: AngularFireAuth) {
-    this.getTasks()
+  constructor(public modalCtrl: ModalController, public fireAuth: AngularFireAuth, public myServices: MyServicesService) {
+    //this.lists = myServices.lists
+    myServices.getLists()
     this.fireAuth.authState.subscribe((user) => {
       this.user = user ? user : null;
     });
@@ -36,25 +37,12 @@ export class HomePage {
     return await modal.present()
   }
 
-  async showItems() {
+  async showItems(key: string) {
     const modal = this.modalCtrl.create({
       component: ShowItemsPage
     })
+    this.myServices.showList(key)
     return (await modal).present()
-  }
-
-  getTasks() {
-    this.afDB.list('Tasks/').valueChanges().subscribe(lists => {
-      lists.forEach(list => {
-        //console.log(list)
-        this.lists.push({
-          date: list['date'],
-          tasks: list['tasks'],
-          title: list['title']
-          //checked: list.payload.exportVal().checked
-        });
-     });
-    });
   }
 
   login() {

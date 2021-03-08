@@ -1,4 +1,3 @@
-<!-- Default back button -->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -30,20 +29,20 @@
         </ion-item>
       </ion-list>
 
-      <ion-row align="center">
-        <ion-col size="6">
-          <ion-item lines="none">Image
-            <ion-icon name="image-outline" slot="start" size="large"></ion-icon>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="6">
-          <ion-item lines="none" (click)="save()">Save
-            <ion-icon name="save-outline" slot="start" size="large"></ion-icon>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row>
+      <ion-item lines="none">Image
+        <ion-icon name="image-outline" slot="start" size="large"></ion-icon>
+      </ion-item>
+
+      <ion-item lines="none" (click)="save()">Save
+        <ion-icon name="save-outline" slot="start" size="large"></ion-icon>
+      </ion-item>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
