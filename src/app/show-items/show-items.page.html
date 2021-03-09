@@ -8,10 +8,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="ion-align-self-center">
+  <ion-card>
     <!-- <ion-img [src]="myServices.list['img']"></ion-img> -->
     <ion-card-header>
-      <ion-card-title>{{myServices.list['title']}}</ion-card-title>
+      <ion-card-title><b>{{myServices.list['title']}}</b></ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
@@ -21,6 +21,24 @@
         </ion-item>
     </ion-card-content>
   </ion-card>
+
+  <ion-fab vertical="center" horizontal="center" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="share-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="shareWhatsapp()"><ion-icon name="logo-whatsapp"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="bottom">
+      <ion-fab-button (click)="shareFacebook()"><ion-icon name="logo-facebook"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="start">
+      <ion-fab-button (click)="sendEmail()"><ion-icon name="mail"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="end">
+      <ion-fab-button (click)="sendTwitter()"><ion-icon name="logo-twitter"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 
 </ion-content>
 

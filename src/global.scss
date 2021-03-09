@@ -24,3 +24,34 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion-header {
+  overflow: hidden;
+}
+
+ion-searchbar {
+  margin-left: 10%;
+  margin-right: 10%;
+  input {
+    border-radius: 15px !important;
+      }
+}
+
+ion-toolbar {
+  ion-avatar img, .bar-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    margin-top: 11px;
+  }
+}
+
+ion-card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+ion-card-title, h4 {
+  color: rgb(17, 8, 148);
+  text-align: center;
+}

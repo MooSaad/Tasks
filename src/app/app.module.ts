@@ -11,6 +11,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+
 export const firebaseConfig = {
   apiKey: "AIzaSyAIu58En-r0VJ3or5KqiJMngP9RnkTaBN4",
   authDomain: "tasks-1cd6a.firebaseapp.com",
@@ -26,7 +28,7 @@ export const firebaseConfig = {
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, AngularFireModule.initializeApp(firebaseConfig), AngularFireDatabaseModule, AngularFireAuthModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, SocialSharing],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

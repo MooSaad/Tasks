@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MyServicesService } from '../my-services.service';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-show-items',
@@ -8,7 +9,58 @@ import { MyServicesService } from '../my-services.service';
 })
 export class ShowItemsPage implements OnInit {
 
-  constructor(public myServices: MyServicesService) { }
+  text: string
+  image: string
+  url: string
+  subject: string
+  constructor(public myServices: MyServicesService, private socialSharing: SocialSharing) {
+    this.text = this.myServices.list['title'] + '\n'
+    this.myServices.list['tasks'].forEach(element => {
+      this.text += '- ' + element + '\n'
+    });
+    this.subject = myServices.list['title']
+  }
+
+
+  shareGeneric (title: string, items: Array<string>, image?: any) {
+    this.socialSharing.share(this.text, this.image)
+  }
+
+  shareWhatsapp(){
+    this.socialSharing.shareViaWhatsApp(this.text, this.image, this.url).then((res) => {
+      // Success
+    }).catch((e) => {
+      // Error!
+    });
+  }
+
+  shareFacebook(){
+    this.socialSharing.shareViaFacebook(this.text, this.image, this.url).then((res) => {
+      // Success
+    }).catch((e) => {
+      // Error!
+    });
+  }
+
+  sendEmail(){
+    // Check if sharing via email is supported
+    this.socialSharing.canShareViaEmail().then(() => {
+      // Sharing via email is possible
+    }).catch(() => {
+      // Sharing via email is not possible
+    });
+
+      // Share via email
+    this.socialSharing.shareViaEmail(this.text, this.subject, ['recipient@example.org']).then(() => {
+      // Success!
+    }).catch(() => {
+      // Error!
+    });
+    }
+
+  sendTwitter(){
+    this.socialSharing.shareViaTwitter(this.text, this.image, this.url)
+  }
 
   ngOnInit() {
   }

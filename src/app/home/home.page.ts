@@ -12,7 +12,8 @@ import { MyServicesService } from "../my-services.service";
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  today: number = Date.now();
+  date = new Date();
+  currentDate = this.date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
   //lists = []
   user = null;
   userInfo: boolean = false
