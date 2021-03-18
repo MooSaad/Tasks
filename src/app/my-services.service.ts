@@ -27,6 +27,8 @@ export class MyServicesService {
             title: taches.title
           });
      });
+     this.lists = this.lists.reverse()
     });
+
   }
 }

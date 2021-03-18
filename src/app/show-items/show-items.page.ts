@@ -62,7 +62,7 @@ export class ShowItemsPage implements OnInit {
       });
   }
 
-  delete(key: string, task: Array<Object>) {
+/*   delete(key: string, task: Array<Object>) {
   let updatedTasks = this.myServices.list['tasks'].filter(function(tache) {
     return tache.item !== task['item'];
 });
@@ -72,11 +72,15 @@ export class ShowItemsPage implements OnInit {
   } else {
     this.myServices.afDB.object('Tasks/' + key).remove();
   }
-  }
+  } */
 
   checkIt(key: string) {
     let updatedTasks = this.myServices.list['tasks']
     this.myServices.afDB.object('Tasks/' + key + '/tasks/').set(updatedTasks);
+  }
+
+  remove(key: string) {
+    this.myServices.afDB.object('Tasks/' + key).remove();
   }
 
   ngOnInit() {}

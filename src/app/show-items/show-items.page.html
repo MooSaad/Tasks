@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card class="center">
     <ion-fab vertical="start" horizontal="end">
       <ion-fab-button id="share" color="warning">
         <ion-icon name="share-outline"></ion-icon>
@@ -29,11 +29,10 @@
         <ion-item lines="none" *ngIf="!task.checked">
           <ion-checkbox (ionChange)="checkIt(myServices.list['key'])" slot="start" [(ngModel)]="task.checked"></ion-checkbox>
           <ion-label>{{task.item}}</ion-label>
-          <ion-icon name="trash" (click)="delete(myServices.list['key'], task)"></ion-icon>
+          <!-- <ion-icon name="trash" (click)="delete(myServices.list['key'], task)"></ion-icon> -->
         </ion-item>
       </div>
-
-        <ion-item>
+        <ion-item >
           <ion-icon size="large" name="list-circle" slot="start"></ion-icon>
           <ion-input
             inputmode="text"
@@ -46,12 +45,16 @@
           ></ion-icon>
         </ion-item>
         <div *ngFor="let task of myServices.list['tasks']">
-          <ion-item *ngIf="task.checked">
+          <ion-item lines="none" *ngIf="task.checked">
             <ion-checkbox disabled="true" checked="true" slot="start"></ion-checkbox>
             <ion-label>{{task.item}}</ion-label>
           </ion-item>
         </div>
     </ion-card-content>
+      <ion-button [routerLink]="['/home']" shape="round" color="danger" (click)="remove(myServices.list['key'])">
+        Delete list
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
   </ion-card>
 </ion-content>
 
