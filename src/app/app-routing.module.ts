@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: 'show-items',
     loadChildren: () => import('./show-items/show-items.module').then( m => m.ShowItemsPageModule)
-  },
+  }
 ];
 
 @NgModule({

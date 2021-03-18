@@ -1,4 +1,3 @@
-<!-- Default back button -->
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -9,58 +8,55 @@
 
 <ion-content>
   <ion-card>
+    <ion-fab vertical="start" horizontal="end">
+      <ion-fab-button id="share" color="warning">
+        <ion-icon name="share-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="start">
+        <ion-fab-button (click)="sendEmail()" color="danger"><ion-icon name="mail"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="shareFacebook()" color="primary"><ion-icon name="logo-facebook"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="shareWhatsapp()" color="success"><ion-icon name="logo-whatsapp"></ion-icon></ion-fab-button>
+        <ion-fab-button (click)="sendTwitter()" color="secondary"><ion-icon name="logo-twitter"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
     <!-- <ion-img [src]="myServices.list['img']"></ion-img> -->
     <ion-card-header>
       <ion-card-title><b>{{myServices.list['title']}}</b></ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-        <ion-item lines="none" *ngFor="let task of myServices.list['tasks']">
-          <ion-checkbox slot="start"></ion-checkbox>
-          <ion-label>{{task}}</ion-label>
+      <div *ngFor="let task of myServices.list['tasks']">
+        <ion-item lines="none" *ngIf="!task.checked">
+          <ion-checkbox (ionChange)="checkIt(myServices.list['key'])" slot="start" [(ngModel)]="task.checked"></ion-checkbox>
+          <ion-label>{{task.item}}</ion-label>
+          <ion-icon name="trash" (click)="delete(myServices.list['key'], task)"></ion-icon>
         </ion-item>
+      </div>
+
+        <ion-item>
+          <ion-icon size="large" name="list-circle" slot="start"></ion-icon>
+          <ion-input
+            inputmode="text"
+            placeholder="Add a quick task"
+          ></ion-input>
+          <ion-icon
+            name="add-circle"
+            size="large"
+            color="success"
+          ></ion-icon>
+        </ion-item>
+        <div *ngFor="let task of myServices.list['tasks']">
+          <ion-item *ngIf="task.checked">
+            <ion-checkbox disabled="true" checked="true" slot="start"></ion-checkbox>
+            <ion-label>{{task.item}}</ion-label>
+          </ion-item>
+        </div>
     </ion-card-content>
   </ion-card>
-
-  <ion-fab vertical="center" horizontal="center" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="share-outline"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button (click)="shareWhatsapp()"><ion-icon name="logo-whatsapp"></ion-icon></ion-fab-button>
-    </ion-fab-list>
-    <ion-fab-list side="bottom">
-      <ion-fab-button (click)="shareFacebook()"><ion-icon name="logo-facebook"></ion-icon></ion-fab-button>
-    </ion-fab-list>
-    <ion-fab-list side="start">
-      <ion-fab-button (click)="sendEmail()"><ion-icon name="mail"></ion-icon></ion-fab-button>
-    </ion-fab-list>
-    <ion-fab-list side="end">
-      <ion-fab-button (click)="sendTwitter()"><ion-icon name="logo-twitter"></ion-icon></ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
-
 </ion-content>
 
 <ion-footer class="ion-no-border">
   <ion-toolbar>
-    <ion-row>
-      <ion-item lines="none">
-        <ion-icon name="image"></ion-icon>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-icon name="share-outline"></ion-icon>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-icon name="create"></ion-icon>
-      </ion-item>
-
-      <ion-item lines="none">
-        <ion-icon name="trash-outline"></ion-icon>
-      </ion-item>
-
-    </ion-row>
+    <h4><b>{{myServices.currentDate}}</b></h4>
   </ion-toolbar>
 </ion-footer>

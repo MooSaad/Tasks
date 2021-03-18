@@ -17,32 +17,47 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-icon size="large" name="list-circle" slot="start"></ion-icon>
-          <ion-input inputmode="text" [(ngModel)]="task" placeholder="Task"></ion-input>
-          <ion-icon name="add-circle" size="large" (click)="addItem()"></ion-icon>
+          <ion-icon size="large" name="list-circle-outline" slot="start"></ion-icon>
+          <ion-input
+            inputmode="text"
+            [(ngModel)]="task"
+            placeholder="Task"
+          ></ion-input>
+          <ion-icon
+            name="add-circle"
+            size="large"
+            color="success"
+            (click)="addItem()"
+          ></ion-icon>
         </ion-item>
 
         <ion-item *ngFor="let item of tasks">
-          <ion-icon size="large" name="list-circle-outline" slot="start"></ion-icon>
-          <div>{{ item }}</div>
-          <ion-icon name="close-circle-outline" size="large" slot="end" (click)="delete(item)"></ion-icon>
+          <ion-icon
+            size="large"
+            name="list-circle"
+            slot="start"
+          ></ion-icon>
+          <div>{{ item['item'] }}</div>
+          <ion-icon
+            name="close-circle-outline"
+            size="large"
+            slot="end"
+            (click)="delete(item)"
+          ></ion-icon>
         </ion-item>
       </ion-list>
-
     </ion-card-content>
   </ion-card>
+
+  <ion-fab vertical="undefined" horizontal="end">
+    <ion-fab-button (click)="save()" color="success">
+      <ion-icon name="checkmark-done-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
 
-<ion-footer>
+<ion-footer class="ion-no-border">
   <ion-toolbar>
-    <ion-row>
-      <ion-item lines="none">Image
-        <ion-icon name="image-outline" slot="start" size="large"></ion-icon>
-      </ion-item>
-
-      <ion-item lines="none" (click)="save()">Save
-        <ion-icon name="save-outline" slot="start" size="large"></ion-icon>
-      </ion-item>
-    </ion-row>
+    <h4><b>{{ myServices.currentDate }}</b></h4>
   </ion-toolbar>
 </ion-footer>

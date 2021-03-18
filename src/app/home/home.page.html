@@ -1,49 +1,92 @@
 <ion-app>
-  <ion-header [translucent]="true">
+  <ion-header class="ion-no-border" [translucent]="true" *ngIf="user">
     <ion-toolbar>
-      <ion-searchbar class="search" animated placeholder="Search your tasks" slot="start" enterkeyhint="search" showCancelButton="focus" spellcheck="true" type="search" clearIcon="close-sharp"  ></ion-searchbar>
-      <ion-icon class="bar-icon" *ngIf="!user" slot="end" size="large" name="logo-google" (click)="login()"></ion-icon>
-      <ion-avatar *ngIf="user" slot="end"><img [src]="user.photoURL" (click)="showUser()"></ion-avatar>
+      <ion-searchbar
+        class="search"
+        animated
+        placeholder="Search your tasks"
+        slot="start"
+        enterkeyhint="search"
+        showCancelButton="focus"
+        spellcheck="true"
+        type="search"
+        clearIcon="close-sharp"
+      ></ion-searchbar>
+      <!-- <ion-icon class="bar-icon" *ngIf="!user" slot="end" size="small" name="logo-google" (click)="login()"></ion-icon> -->
+      <ion-avatar *ngIf="user" slot="end"
+        ><img [src]="user.photoURL" (click)="showUser()"
+      /></ion-avatar>
     </ion-toolbar>
 
     <div *ngIf="userInfo">
       <ion-item lines="none">
-        <ion-avatar slot="start"><img [src]="user.photoURL"></ion-avatar>
+        <ion-avatar slot="start"><img [src]="user.photoURL" /></ion-avatar>
         <div>
           <ion-label>{{user.displayName}}</ion-label>
           <ion-note>{{user.email}}</ion-note>
         </div>
-        <ion-icon name="log-out-outline" slot="end" (click)="logout()"></ion-icon>
+        <ion-icon
+          name="log-out-outline"
+          slot="end"
+          (click)="logout()"
+        ></ion-icon>
       </ion-item>
     </div>
   </ion-header>
 
-  <ion-content [fullscreen]="true">
-    <ion-grid>
-      <ion-card class="column" button="true" *ngFor="let list of myServices.lists" (click)="showItems(list.key)">
+  <ion-content *ngIf="!user" [fullscreen]="true">
+    <ion-card id="auth-card">
+      <ion-card-header></ion-card-header>
+      <ion-card-title>Welcome to <b>Tasks</b></ion-card-title>
+      <ion-card-content>
+        <ion-button expand="default" fill="solid" color="danger" shape="round" (click)="login()">
+          <ion-icon name="logo-google" slot="start"></ion-icon>
+          Continue with Google
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+
+  <ion-content *ngIf="user" [fullscreen]="true">
+    <ion-grid class="row">
+      <ion-card
+        button="true"
+        *ngFor="let list of myServices.lists"
+        [routerLink]="['/show-items']"
+        (click)="getList(list.key)"
+      >
         <ion-card-header>
           <ion-card-title><b>{{list['title']}}</b></ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <ion-item lines="none" *ngFor="let task of list['tasks']">
-              <ion-icon name="checkbox-outline" size="small" slot="start"></ion-icon>
-              <ion-label>{{task}}</ion-label>
-            </ion-item>
+          <ion-item lines="none" *ngFor="let task of list['tasks']">
+            <ion-icon
+              name="checkbox-outline"
+              size="small"
+              slot="start"
+            ></ion-icon>
+            <ion-label>{{task.item}}</ion-label>
+          </ion-item>
         </ion-card-content>
       </ion-card>
     </ion-grid>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed" edge="true">
-      <ion-fab-button (click)="addList()" color="dark">
+      <ion-fab-button (click)="addList()" color="success">
         <ion-icon name="add-circle"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed" edge="true">
+      <ion-fab-button (click)="this.myServices.getLists()" color="success">
+        <ion-icon name="refresh-circle"></ion-icon>
       </ion-fab-button>
     </ion-fab>
   </ion-content>
 
-<ion-footer class="ion-no-border">
-  <ion-toolbar>
-    <h4><b>{{ currentDate }}</b></h4>
-
-  </ion-toolbar>
-</ion-footer>
+  <ion-footer class="ion-no-border" *ngIf="user">
+    <ion-toolbar>
+      <h4><b>{{myServices.currentDate}}</b></h4>
+    </ion-toolbar>
+  </ion-footer>
 </ion-app>

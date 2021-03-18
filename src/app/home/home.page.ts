@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
 import { ModalController } from '@ionic/angular';
 import { AddNewListPage } from '../add-new-list/add-new-list.page';
-import { ShowItemsPage } from '../show-items/show-items.page';
-import { MyServicesService } from "../my-services.service";
+import { MyServicesService } from '../my-services.service';
 
 @Component({
   selector: 'app-home',
@@ -12,50 +11,40 @@ import { MyServicesService } from "../my-services.service";
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  date = new Date();
-  currentDate = this.date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-  //lists = []
   user = null;
-  userInfo: boolean = false
-  constructor(public modalCtrl: ModalController, public fireAuth: AngularFireAuth, public myServices: MyServicesService) {
-    //this.lists = myServices.lists
-    myServices.getLists()
+  constructor(
+    public modalCtrl: ModalController,
+    public myServices: MyServicesService,
+    public fireAuth: AngularFireAuth,
+  ) {
     this.fireAuth.authState.subscribe((user) => {
       this.user = user ? user : null;
+      this.myServices.userId = user ? user.uid : '';
     });
-  }
-
-  async addList() {
-    const modal = await this.modalCtrl.create({
-      component: AddNewListPage
-    })
-
-    /* modal.onDidDismiss().then(newTask => {
-      console.log(newTask.data);
-      //this.list.push(newTask.data)
-    }) */
-
-    return await modal.present()
-  }
-
-  async showItems(key: string) {
-    const modal = this.modalCtrl.create({
-      component: ShowItemsPage
-    })
-    this.myServices.showList(key)
-    return (await modal).present()
   }
 
   login() {
     this.fireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
+  userInfo: boolean = false;
   showUser() {
-    this.userInfo = !this.userInfo
+    this.userInfo = !this.userInfo;
   }
 
   logout() {
     this.fireAuth.signOut();
-    this.userInfo = !this.userInfo
+    this.userInfo = !this.userInfo;
+  }
+
+  async addList() {
+    const modal = await this.modalCtrl.create({
+      component: AddNewListPage,
+    });
+    return await modal.present();
+  }
+
+  getList(key: string) {
+    this.myServices.list = this.myServices.lists.find((l) => l.key === key);
   }
 }
